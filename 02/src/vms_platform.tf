@@ -6,12 +6,6 @@ variable "vm_web_image_family" {
   description = "Семейство образа ОС для ВМ"
 }
 
-variable "vm_web_name" {
-  type        = string
-  default     = "netology-develop-platform-web"
-  description = "Имя ВМ"
-}
-
 variable "vm_web_platform_id" {
   type        = string
   default     = "standard-v3"
@@ -55,12 +49,6 @@ variable "vm_web_serial_port_enable" {
 }
 
 ###vm_db vars
-
-variable "vm_db_name" {
-  type        = string
-  default     = "netology-develop-platform-db"
-  description = "Имя ВМ"
-}
 
 variable "vm_db_zone" {
   type        = string
