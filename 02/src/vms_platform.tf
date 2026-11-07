@@ -12,23 +12,23 @@ variable "vm_web_platform_id" {
   description = "Платформа ВМ"
 }
 
-variable "vm_web_cores" {
-  type        = number
-  default     = 2
-  description = "Количество ядер ВМ"
-}
-
-variable "vm_web_memory" {
-  type        = number
-  default     = 1
-  description = "Объём RAM ВМ, ГБ"
-}
-
-variable "vm_web_core_fraction" {
-  type        = number
-  default     = 20
-  description = "Гарантированная доля vCPU, %"
-}
+# variable "vm_web_cores" {
+#   type        = number
+#   default     = 2
+#   description = "Количество ядер ВМ"
+# }
+#
+# variable "vm_web_memory" {
+#   type        = number
+#   default     = 1
+#   description = "Объём RAM ВМ, ГБ"
+# }
+#
+# variable "vm_web_core_fraction" {
+#   type        = number
+#   default     = 20
+#   description = "Гарантированная доля vCPU, %"
+# }
 
 variable "vm_web_preemptible" {
   type        = bool
@@ -42,11 +42,11 @@ variable "vm_web_nat" {
   description = "Публичный IP-адрес у ВМ"
 }
 
-variable "vm_web_serial_port_enable" {
-  type        = number
-  default     = 1
-  description = "Включить доступ к последовательному порту (1/0)"
-}
+# variable "vm_web_serial_port_enable" {
+#   type        = number
+#   default     = 1
+#   description = "Включить доступ к последовательному порту (1/0)"
+# }
 
 ###vm_db vars
 
@@ -68,23 +68,23 @@ variable "vm_db_platform_id" {
   description = "Платформа ВМ"
 }
 
-variable "vm_db_cores" {
-  type        = number
-  default     = 2
-  description = "Количество ядер ВМ"
-}
-
-variable "vm_db_memory" {
-  type        = number
-  default     = 2
-  description = "Объём RAM ВМ, ГБ"
-}
-
-variable "vm_db_core_fraction" {
-  type        = number
-  default     = 20
-  description = "Гарантированная доля vCPU, %"
-}
+# variable "vm_db_cores" {
+#   type        = number
+#   default     = 2
+#   description = "Количество ядер ВМ"
+# }
+#
+# variable "vm_db_memory" {
+#   type        = number
+#   default     = 2
+#   description = "Объём RAM ВМ, ГБ"
+# }
+#
+# variable "vm_db_core_fraction" {
+#   type        = number
+#   default     = 20
+#   description = "Гарантированная доля vCPU, %"
+# }
 
 variable "vm_db_preemptible" {
   type        = bool
@@ -98,8 +98,40 @@ variable "vm_db_nat" {
   description = "Публичный IP-адрес у ВМ"
 }
 
-variable "vm_db_serial_port_enable" {
-  type        = number
-  default     = 1
-  description = "Включить доступ к последовательному порту (1/0)"
+# variable "vm_db_serial_port_enable" {
+#   type        = number
+#   default     = 1
+#   description = "Включить доступ к последовательному порту (1/0)"
+# }
+
+###vms resources and shared metadata
+
+variable "vms_resources" {
+  type = map(object({
+    cores         = number
+    memory        = number
+    core_fraction = number
+  }))
+  default = {
+    web = {
+      cores         = 2
+      memory        = 1
+      core_fraction = 20
+    }
+    db = {
+      cores         = 2
+      memory        = 2
+      core_fraction = 20
+    }
+  }
+  description = "Ресурсы ВМ: ядра, RAM (ГБ), доля vCPU (%)"
+}
+
+variable "metadata" {
+  type        = map(string)
+  default     = {
+    serial-port-enable = "1"
+    ssh-keys           = "ubuntu:<your_ssh_ed25519_key>"
+  }
+  description = "Метаданные, общие для всех ВМ"
 }
